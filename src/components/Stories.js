@@ -8,7 +8,7 @@ function Stories() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetchApiData().then((res) => {
+    fetchApiData("", 0).then((res) => {
       return setLoading(false), dispatch(getStories(res?.data));
     });
   }, []);
