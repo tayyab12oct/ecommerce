@@ -1,15 +1,27 @@
-import React from "react";
-import { useGlobalContext } from "../context";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getStories, removePost } from "../store/actions";
+import { fetchApiData } from "../store/api/fetch";
 function Stories() {
-  const { hits, isLoading, removePost } = useGlobalContext();
+  const dispatch = useDispatch();
+  const state = useSelector((data) => data);
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetchApiData().then((res) => {
+      return setLoading(false), dispatch(getStories(res?.data));
+    });
+  }, []);
+  useEffect(() => {
+    setData(state?.hits);
+  }, [state]);
   return (
     <div className="pb-8">
-      {isLoading ? (
+      {loading ? (
         <h1 className="text-center font-semibold text-xl pt-5">Loading....</h1>
       ) : (
         <ul className="space-y-6">
-          {hits?.map((v) => {
+          {data?.map((v) => {
             return (
               <li
                 key={v.objectID}
@@ -27,7 +39,9 @@ function Stories() {
                   </a>
                   <p
                     className="text-red-500 cursor-pointer text-sm"
-                    onClick={() => removePost(v.objectID)}
+                    onClick={() => {
+                      dispatch(removePost(v.objectID));
+                    }}
                   >
                     Remove
                   </p>
