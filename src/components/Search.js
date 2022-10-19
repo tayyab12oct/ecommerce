@@ -6,6 +6,7 @@ import { fetchApiData } from "../store/api/fetch";
 function Search() {
   const dispatch = useDispatch();
   const search = (e) => {
+    console.log('Search', e?.target?.value);
     fetchApiData(e?.target?.value).then((res) => {
       return dispatch(getStories(res?.data));
     });

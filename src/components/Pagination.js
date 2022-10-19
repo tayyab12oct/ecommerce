@@ -12,8 +12,8 @@ function Pagination() {
     });
   };
   const getPrevPage = () => {
-    fetchApiData().then((res) => {
-      return dispatch(prevPage()), console.log("data", data.page);
+    fetchApiData("", data.page - 1).then((res) => {
+      return dispatch(prevPage(res)), console.log("data", res);
     });
   };
   return (

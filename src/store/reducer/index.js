@@ -2,6 +2,7 @@ const init = {
   hits: [],
   nbPages: 0,
   page: 0,
+  query: ''
 };
 
 function reducer(state = init, action) {
@@ -11,6 +12,7 @@ function reducer(state = init, action) {
         ...state,
         hits: action.payload.hits,
         nbPages: action.payload.nbPages,
+        query: action.payload.query,
       };
     case "REMOVE_POST":
       return {
@@ -28,6 +30,7 @@ function reducer(state = init, action) {
       return {
         ...state,
         page: state.page - 1,
+        hits: action.payload.hits,
       };
     }
   }
