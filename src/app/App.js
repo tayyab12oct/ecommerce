@@ -1,16 +1,17 @@
-import Search from "./components/Search";
-import Stories from "./components/Stories";
-import Pagination from "./components/Pagination";
+// import Search from "../components/Search";
+// import Stories from "../components/Stories";
+// import Pagination from "../components/Pagination";
 
 function App() {
   return (
     <div className="max-w-md mx-auto space-y-5 py-10">
+      Hello!
       {/* <h1 className="text-3xl text-center font-semibold p-10">
         Users Data Fetching by axios
       </h1> */}
-      <Search />
+      {/* <Search />
       <Pagination />
-      <Stories />
+      <Stories /> */}
     </div>
   );
 }
