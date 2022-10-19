@@ -1,19 +1,19 @@
-// import Search from "../components/Search";
-// import Stories from "../components/Stories";
-// import Pagination from "../components/Pagination";
+import React from 'react'
+import Login from 'pages/authentication/login'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from 'pages/app/home'
+import Router from 'router'
 
 function App() {
   return (
-    <div className="max-w-md mx-auto space-y-5 py-10">
-      Hello!
-      {/* <h1 className="text-3xl text-center font-semibold p-10">
-        Users Data Fetching by axios
-      </h1> */}
-      {/* <Search />
-      <Pagination />
-      <Stories /> */}
-    </div>
-  );
+    <BrowserRouter>
+      <Router />
+      {/* <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+      </Routes> */}
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
