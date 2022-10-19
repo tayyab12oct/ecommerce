@@ -4,7 +4,6 @@ import Products from "pages/app/products";
 export const ProtectedRoutes = [
     {
         path: "/",
-        // component: <Home />,
         children: [
             {
                 path: "",
