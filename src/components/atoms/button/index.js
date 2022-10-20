@@ -1,25 +1,24 @@
-import { memo } from 'react';
-import { twMerge } from 'tailwind-merge';
 
-function Button(props) {
-  const { btnValue, className, onClick, disable, ...rem } = props;
+import React from "react";
+import { twMerge } from "tailwind-merge";
+
+function Button({ value, icon, className, ...props }) {
   return (
     <button
+      {...props}
+      disabled={props?.disabled || props?.loader}
       className={twMerge(
-        className,
-        disable && 'bg-gray-700 hover:bg-gray-700 hover:text-white border-none cursor-not-allowed'
+        `w-full bg-primary-main hover:bg-primary-hover hover:shadow transition-all items-center justify-center flex p-4 text-secondary-300 font-semibold focus:outline-none ${className}`
       )}
-      onClick={onClick}
-      aria-label="this is button"
-      disabled={disable}
-      {...rem}
     >
-      {btnValue}
+      {props?.loader ? (
+        <img src={props.src} alt="loader" className="w-8" />
+      ) : (
+        value
+      )}
+      {icon}
     </button>
   );
 }
-Button.defaultProps = {
-  className:
-    'border border-primary italic text-2xs text-primary w-full py-2.5 hover:bg-primary hover:text-white  leading-none transition-all',
-};
-export default memo(Button);
+
+export default Button;

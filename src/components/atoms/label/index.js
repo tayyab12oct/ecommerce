@@ -9,6 +9,6 @@ function Label({ className, value, onClick }) {
 }
 Label.defaultProps = {
   onClick: () => ({}),
-  className: 'select-text',
+  className: 'block',
 };
 export default memo(Label);

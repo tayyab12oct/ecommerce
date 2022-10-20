@@ -1,42 +1,55 @@
-import { memo } from 'react';
+import React from "react";
+import { useFormContext } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
+
 function Input(props) {
   const {
-    type,
     name,
-    id,
-    className,
     placeholder,
-    onChange,
-    value,
-    error,
-    register,
+    type,
     rules,
-    required,
+    label,
+    id,
+    icon,
+    labelClass,
+    inputClass,
+    required
   } = props;
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
-    <input
-      type={type}
-      name={name}
-      value={value}
-      id={id}
-      className={`${className} focus:outline-none ${
-        error && name && error[name] ? 'border-red-500 border' : ''
-      }`}
-      placeholder={placeholder}
-      onChange={onChange}
-      {...register(name, { required: required, ...rules })}
-    />
+    <div className="w-full flex flex-col transition-all">
+      <label
+        className={twMerge(
+          `text-sm text-secondary-300 font-semibold mb-2.5 ${labelClass}`
+        )}
+        htmlFor={id}
+      >
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      <div>
+        <input
+          id={id}
+          type={type}
+          placeholder={placeholder}
+          {...register(name, rules)}
+          className={twMerge(
+            `relative transition-all w-full focus:border-primary-main border text-secondary-300 px-4 py-3 placeholder:tracking-wide focus:outline-none ${inputClass} 
+            ${errors[name] ? "border-red-500 focus:border-red-500" : "border-secondary-50"
+            }`
+          )}
+        />
+        {icon}
+      </div>
+      {errors[name] &&
+        <p className="text-red-500 text-xs tracking-wide mt-2 transition-all">
+          {errors[name] ? errors[name]?.message : null}
+        </p>
+      }
+    </div>
   );
 }
-Input.defaultProps = {
-  type: 'text',
-  name: '',
-  id: '',
-  className:
-    'p-2 py-1.5 block w-full border text-2xs border-gray-100 placeholder-gray-700',
-  placeholder: '',
-  register: (e) => e,
-  rules: {},
-  required: false,
-};
-export default memo(Input);
+
+export default Input;

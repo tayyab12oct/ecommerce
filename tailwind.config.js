@@ -12,6 +12,16 @@ module.exports = {
     },
     colors: ({ colors }) => ({
       inherit: colors.inherit,
+      primary: {
+        main: "#ffc301",
+        hover: "#FFB901"
+      },
+      secondary: {
+        50: "#ddd",
+        200: "#29323a",
+        300: "#333e48",
+        800: "#8f8f8f",
+      },
       current: colors.current,
       transparent: colors.transparent,
       black: colors.black,
@@ -31,7 +41,7 @@ module.exports = {
       teal: colors.teal,
       cyan: colors.cyan,
       sky: colors.sky,
-      blue: colors.blue,
+      blue: { ...colors.blue, 100: "#1977F3" },
       indigo: colors.indigo,
       violet: colors.violet,
       purple: colors.purple,
@@ -88,6 +98,7 @@ module.exports = {
       12: "3rem",
       14: "3.5rem",
       16: "4rem",
+      18: "4.5rem",
       20: "5rem",
       24: "6rem",
       28: "7rem",
@@ -206,6 +217,7 @@ module.exports = {
     borderWidth: {
       DEFAULT: "1px",
       0: "0px",
+      '1.5': "1.5px",
       2: "2px",
       4: "4px",
       8: "8px",
@@ -386,6 +398,7 @@ module.exports = {
         '"Courier New"',
         "monospace",
       ],
+      inter: ['Inter'],
     },
     fontSize: {
       xs: ["0.75rem", { lineHeight: "1rem" }],
