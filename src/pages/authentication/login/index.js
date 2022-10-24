@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc"
 import { BsFacebook } from "react-icons/bs"
 import { loginSchema } from 'components/form/formSchema';
-import { useFormik } from "formik"
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
 
 const initialValues = {
     email: "",
@@ -17,6 +18,7 @@ function Login() {
         validationSchema: loginSchema,
         onSubmit: (values, action) => {
             console.log("Data", values);
+            toast.success("Login Successfully")
             action.resetForm();
         }
     })

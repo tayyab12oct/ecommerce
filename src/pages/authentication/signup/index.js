@@ -6,6 +6,7 @@ import { FcGoogle } from "react-icons/fc"
 import { BsFacebook } from "react-icons/bs"
 import { registrationSchema } from 'components/form/formSchema';
 import { useFormik } from "formik"
+import { toast } from 'react-toastify';
 
 const initialValues = {
     first_name: "",
@@ -21,6 +22,7 @@ function SignUp() {
         validationSchema: registrationSchema,
         onSubmit: (values, action) => {
             console.log("Data", values);
+            toast.success("Account Created Successfully")
             action.resetForm()
         }
     });
@@ -66,18 +68,6 @@ function SignUp() {
                         />
                     </div>
                     <Input
-                        id="phone_number"
-                        type="text"
-                        name="phone_number"
-                        placeholder="Enter Your Phone Number..."
-                        label="Phone Number"
-                        value={values.phone_number}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        errors={errors.phone_number}
-                        touched={touched.phone_number}
-                    />
-                    <Input
                         id="email"
                         type="email"
                         name="email"
@@ -88,6 +78,18 @@ function SignUp() {
                         onBlur={handleBlur}
                         errors={errors.email}
                         touched={touched.email}
+                    />
+                    <Input
+                        id="phone_number"
+                        type="text"
+                        name="phone_number"
+                        placeholder="Enter Your Phone Number..."
+                        label="Phone Number"
+                        value={values.phone_number}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        errors={errors.phone_number}
+                        touched={touched.phone_number}
                     />
                     <Input
                         id="password"
