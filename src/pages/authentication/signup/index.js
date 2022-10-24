@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Input, Label, OR } from 'components/atoms';
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
@@ -8,24 +8,29 @@ import { registrationSchema } from 'components/form/formSchema';
 import { useFormik } from "formik"
 import { toast } from 'react-toastify';
 
-const initialValues = {
-    first_name: "",
-    last_name: "",
-    phone_number: "",
-    email: "",
-    password: "",
-    confirm_password: "",
-};
 function SignUp() {
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-        initialValues,
+    const [state, setState] = useState({
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+    });
+    const [data, setData] = useState([]);
+    const { values = state, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+        initialValues: state,
         validationSchema: registrationSchema,
-        onSubmit: (values, action) => {
-            console.log("Data", values);
+        onSubmit: (state, action) => {
+            console.log("State Data => ", state);
+            setData([...data, state])
             toast.success("Account Created Successfully")
             action.resetForm()
         }
     });
+    useEffect(() => {
+        localStorage.setItem("Users", JSON.stringify(data))
+    }, [data])
     return (
         <>
             <Helmet>
@@ -94,7 +99,7 @@ function SignUp() {
                     <Input
                         id="password"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Enter Password"
                         name="password"
                         label="Password"
                         value={values.password}
@@ -106,7 +111,7 @@ function SignUp() {
                     <Input
                         id="confirm_password"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Enter Confirm Password"
                         name="confirm_password"
                         label="Confirm Password"
                         value={values.confirm_password}

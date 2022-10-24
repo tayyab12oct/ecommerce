@@ -30,7 +30,7 @@ function Input(props) {
           type={type}
           name={name}
           placeholder={placeholder}
-          autoComplete="off"
+          // autoComplete="off"
           // {...register(name, rules)}
           {...props}
           className={twMerge(
