@@ -1,25 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Checkbox, Input, Label, OR } from 'components/atoms';
 import { Helmet } from "react-helmet";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc"
 import { BsFacebook } from "react-icons/bs"
 import { loginSchema } from 'components/form/formSchema';
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
-const initialValues = {
-    email: "",
-    password: ""
-}
 function Login() {
-    const { values, errors, touched, handleSubmit, handleBlur, handleChange } = useFormik({
-        initialValues,
+    const [data, setData] = useState({
+        email: "",
+        password: ""
+    })
+
+    let user = localStorage.getItem('Users')
+    const history = useNavigate();
+
+    const { values = data, errors, touched, handleSubmit, handleBlur, handleChange } = useFormik({
+        initialValues: data,
         validationSchema: loginSchema,
-        onSubmit: (values, action) => {
-            console.log("Data", values);
-            toast.success("Login Successfully")
-            action.resetForm();
+        onSubmit: (data, action) => {
+            const { email, password } = data;
+            if (user && user.length) {
+                let userData = JSON.parse(localStorage.getItem('Users'))
+                const userLogin = userData.filter((el, k) => {
+                    return el.email === email && el.password === password
+                })
+                if (userLogin.length === 0) {
+                    toast.error("Email or Passowrd is invalid")
+                } else {
+                    action.resetForm()
+                    history("/")
+                    toast.success("Login Successfully")
+                    console.log("Login Successfully", data);
+                }
+            }
         }
     })
     return (
