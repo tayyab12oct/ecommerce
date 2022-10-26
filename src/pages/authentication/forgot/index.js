@@ -1,21 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Input, Label } from 'components/atoms';
 import { Helmet } from "react-helmet";
 import { useFormik } from 'formik';
 import { forgetSchema } from 'components/form/formSchema';
+import { toast } from 'react-toastify';
 
-
-const initialValues = {
-    email: ""
-}
 
 function Forgot() {
-    const { values, errors, touched, handleSubmit, handleChange, handleBlur } = useFormik({
-        initialValues,
+    const [data, setData] = useState({
+        email: ""
+    })
+    let user = localStorage.getItem("Users")
+    const { values = data, errors, touched, handleSubmit, handleChange, handleBlur } = useFormik({
+        initialValues: data,
         validationSchema: forgetSchema,
-        onSubmit: (values, action) => {
-            console.log("Data", values);
-            action.resetForm()
+        onSubmit: (data) => {
+            console.log("Data", data);
+            const { email } = data;
+            if (user && user.length) {
+                let userData = JSON.parse(user)
+                const userForgot = userData.filter((v) => {
+                    return v.email === email
+                })
+                if (userForgot.length === 0) {
+                    toast.error("Email is invalid")
+                } else {
+                    toast.error("Email sent to your email account.")
+                }
+            }
         }
 
     })
@@ -41,7 +53,6 @@ function Forgot() {
                         errors={errors.email}
                         touched={touched.email}
                     />
-
                     <Button value="Reset Password" type='submit' />
                 </form>
             </div>
